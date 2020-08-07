@@ -18,11 +18,9 @@ def save_new_user(data):
             registered_on=datetime.datetime.utcnow()
         )
         save_changes(new_user)
-        response_object = {
-            'status': 'success',
-            'message': 'Successfully registered.'
-        }
-        return response_object, 201
+
+        return generate_token(new_user)
+
     else:
         return generate_token(user)
 
