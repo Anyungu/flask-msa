@@ -19,7 +19,7 @@ def register_user(self):
 
 def login_user(self):
     return self.client.post(
-        '/auth/login/2',
+        '/auth/login/',
         data=json.dumps(dict(
             email='example@gmail.com',
             password='123456'
