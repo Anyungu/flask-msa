@@ -19,7 +19,7 @@ def register_user(self):
 
 def login_user(self):
     return self.client.post(
-        '/auth/login/',
+        '/auth/login',
         data=json.dumps(dict(
             email='example@gmail.com',
             password='123456'
@@ -35,14 +35,12 @@ class TestAuthBlueprint(BaseTestCase):
         with self.client:
             # user registration
             user_response = register_user(self)
-            print(user_response.data)
             response_data = json.loads(user_response.data.decode())
             self.assertTrue(response_data['Authorization'])
             self.assertEqual(user_response.status_code, 201)
 
             # registered user login
             login_response = login_user(self)
-            print(login_response.data)
             data = json.loads(login_response.data.decode())
             self.assertTrue(data['Authorization'])
             self.assertEqual(login_response.status_code, 200)
