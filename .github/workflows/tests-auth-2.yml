@@ -3,7 +3,7 @@ name: test-auth-2
 on:
   pull_request:
     paths:
-      - paths: "auth-service-2/**"
+      - "auth-service-2/**"
 jobs:
   build:
     runs-on: ubuntu-latest
