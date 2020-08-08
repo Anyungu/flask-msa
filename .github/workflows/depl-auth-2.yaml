@@ -1,24 +1,24 @@
 name: depl-auth-2
 
-on: 
-  push: 
-    branches: 
+on:
+  push:
+    branches:
       - master
-    paths: 
+    paths:
       - auth-service-2/**
-      
-jobs: 
+
+jobs:
   build:
     runs-on: ubuntu-latest
-    steps: 
-       - name: Checkout code
-         uses: actions/checkout@v2
-         
-       - name: Build and push Docker images
-         uses: docker/build-push-action@v1
-         with:
-           dockerfile: auth-service-2
-           username: ${{ secrets.DOCKER_USERNAME }}
-           password: ${{ secrets.DOCKER_PASSWORD }}
-           repository: anyungu/mesauth
-           tags: latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v1
+        run: cd auth-service-2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: anyungu/mesauth
+          tags: latest
