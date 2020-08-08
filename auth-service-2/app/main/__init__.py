@@ -12,7 +12,7 @@ flask_bcrypt = Bcrypt()
 
 def create_app(config_name):
 
-    print("start")
+    print("start again again")
     app = Flask(__name__)
     app.config.from_object(config_by_name[config_name])
     db.init_app(app)
