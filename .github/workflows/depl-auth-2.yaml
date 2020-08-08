@@ -16,7 +16,6 @@ jobs:
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v1
-        run: cd auth-service-2
         with:
           path: auth-service-2
           username: ${{ secrets.DOCKER_USERNAME }}
