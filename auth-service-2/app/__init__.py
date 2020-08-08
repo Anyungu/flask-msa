@@ -14,5 +14,5 @@ api = Api(blueprint,
           description='a boilerplate for flask restx web service'
           )
 
-api.add_namespace(user_ns, path='/user')
+api.add_namespace(user_ns)
 api.add_namespace(auth_ns)
