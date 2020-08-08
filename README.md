@@ -2,8 +2,9 @@
 
 # MSA Stack
 
-* Containerization: Docker
-* Container ochestration: Kuberneters
-* Service discovery: Consul
-* Gateway: Envoy
+* Containerization: **Docker**
+* Container ochestration: **Kuberneters**
+* Service discovery: **Consul**
+* Gateway: **Envoy**
+* CICD: **Github Actions**
  
