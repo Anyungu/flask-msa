@@ -13,6 +13,6 @@ RUN apk update \
     libffi-dev
 RUN pip install -r requirements.txt
 EXPOSE 5000
-CMD ["python","manage.py","run", "--host=0.0.0.0"]
+CMD ["python","manage.py","run"]
 
 
