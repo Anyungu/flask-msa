@@ -16,24 +16,67 @@ spec:
     metadata:
       labels:
         app: auth
+      annotations:
+        "consul.hashicorp.com/connect-inject": "true"
     spec:
       containers:
         - name: auth
           image: anyungu/mesauth
+
+      serviceAccountName: auth
 ---
+# apiVersion: v1
+
+# kind: Service
+
+# metadata:
+#   name: auth-srv
+
+# spec:
+#   selector:
+#     app: auth
+
+#   ports:
+#     - name: auth
+#       protocol: TCP
+#       port: 5000
+#       targetPort: 5000
+
 apiVersion: v1
 
-kind: Service
+kind: ServiceAccount
 
 metadata:
-  name: auth-srv
+  name: auth
 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-srv
+  annotations:
+    getambassador.io/config: |
+      ---
+      apiVersion: ambassador/v1
+      kind:  Mapping
+      name:  auth_srv_mapping
+      prefix: /user
+      service: http://auth-2-depl:5000
 spec:
+  type: NodePort
   selector:
     app: auth
-
   ports:
-    - name: auth
-      protocol: TCP
-      port: 5000
+    - port: 80
+      name: auth
       targetPort: 5000
+
+---
+# apiVersion: getambassador.io/v2
+# kind: Mapping
+# metadata:
+#   name: auth_srv_mapping
+#   namespace: ambassador
+# spec:
+#   prefix: /user/
+#   service: auth-srv
