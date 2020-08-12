@@ -1,5 +1,3 @@
-
-
 from flask import request
 from flask_restx import Resource
 
@@ -13,13 +11,13 @@ user_auth = AuthDto.user_auth
 @api.route('/login')
 class UserLogin(Resource):
     """
-        User Login Resource
+        User Login Resources
     """
     @api.doc('user login')
     @api.expect(user_auth, validate=True)
     def post(self):
         # get the post data
-        
+
         post_data = request.json
         return Auth.login_user(data=post_data)
 
@@ -27,7 +25,7 @@ class UserLogin(Resource):
 @api.route('/logout')
 class LogoutAPI(Resource):
     """
-    Logout Resource
+    Logout Resources
     """
     @api.doc('logout a user')
     def post(self):
