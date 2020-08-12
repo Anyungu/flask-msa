@@ -1,35 +1,26 @@
-
-
 import unittest
 import json
 from app.test.base import BaseTestCase
 
 
 def register_user(self):
-    return self.client.post(
-        '/user/',
-        data=json.dumps(dict(
-            email='example@gmail.com',
-            username='username',
-            password='123456'
-        )),
-        content_type='application/json'
-    )
+    return self.client.post('api/v1/user/',
+                            data=json.dumps(
+                                dict(email='example@gmail.com',
+                                     username='username',
+                                     password='123456')),
+                            content_type='application/json')
 
 
 def login_user(self):
-    return self.client.post(
-        '/auth/login',
-        data=json.dumps(dict(
-            email='example@gmail.com',
-            password='123456'
-        )),
-        content_type='application/json'
-    )
+    return self.client.post('api/v1/auth/login/',
+                            data=json.dumps(
+                                dict(email='example@gmail.com',
+                                     password='123456')),
+                            content_type='application/json')
 
 
 class TestAuthBlueprint(BaseTestCase):
-
     def test_registered_user_login(self):
         """ Test for login of registered-user login """
         with self.client:
@@ -62,13 +53,10 @@ class TestAuthBlueprint(BaseTestCase):
 
             # valid token logout
             response = self.client.post(
-                '/auth/logout',
+                'api/v1/auth/logout/',
                 headers=dict(
-                    Authorization='Bearer ' + json.loads(
-                        login_response.data.decode()
-                    )['Authorization']
-                )
-            )
+                    Authorization='Bearer ' +
+                    json.loads(login_response.data.decode())['Authorization']))
             data = json.loads(response.data.decode())
             self.assertTrue(data['status'] == 'success')
             self.assertEqual(response.status_code, 200)
