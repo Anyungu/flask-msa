@@ -11,7 +11,7 @@ user_auth = AuthDto.user_auth
 @api.route('/login')
 class UserLogin(Resource):
     """
-        User Login Resource
+        User Login Resources
     """
     @api.doc('user login')
     @api.expect(user_auth, validate=True)
@@ -25,7 +25,7 @@ class UserLogin(Resource):
 @api.route('/logout')
 class LogoutAPI(Resource):
     """
-    Logout Resource
+    Logout Resources
     """
     @api.doc('logout a user')
     def post(self):
