@@ -32,11 +32,11 @@ jobs:
 
       - name: List clusters
         run: gcloud config set project ${{ secrets.PROJECT_ID }}
-      - run: gcloud container clusters list
+    
 
-      # - name: Deploy
-      #   run: |
-      #     gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_ZONE }} --project ${{ secrets.PROJECT_ID }}
-      #     kubectl rollout restart deployment/auth-2-depl
+      - name: Deploy
+        run: |
+          gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }}
+          kubectl rollout restart deployment/auth-2-depl
       - name: Deploy
         run: kubectl get svc
