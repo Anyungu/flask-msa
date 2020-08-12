@@ -32,6 +32,7 @@ jobs:
 
       - name: List clusters
         run: gcloud config set project ${{ secrets.PROJECT_ID }}
+      - run: gcloud container clusters list
     
 
       - name: Deploy
