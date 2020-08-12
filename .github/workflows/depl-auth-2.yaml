@@ -37,7 +37,7 @@ jobs:
 
       - name: Deploy
         run: |
-          gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }}
+          gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_ZONE }} --project ${{ secrets.PROJECT_ID }}
           kubectl rollout restart deployment/auth-2-depl
       - name: Deploy
         run: kubectl get svc
