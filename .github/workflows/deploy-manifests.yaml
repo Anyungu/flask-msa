@@ -25,4 +25,5 @@ jobs:
         run: gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_ZONE }} --project ${{ secrets.PROJECT_ID }}
 
       - name: Run manifests
-        run: kubectl apply -f infra/k8s/ --recursive
+        # run: kubectl apply -f infra/k8s/ --recursive
+        run: kubectl get svc
