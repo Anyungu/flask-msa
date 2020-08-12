@@ -31,7 +31,8 @@ jobs:
           service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
 
       - name: List clusters
-        run: gcloud container clusters list
+        run: gcloud config set project ${{ secrets.PROJECT_ID }}
+      - run: gcloud container clusters list
 
       # - name: Deploy
       #   run: |
