@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - infra/**
+      - infra/k8s/**
 
 jobs:
   build:
@@ -14,11 +14,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build and push Docker images
-        uses: docker/build-push-action@v1
+      - name: Setup gcloud CLI
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
-          path: auth-service-2
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: anyungu/mesauth
-          tags: latest
+          version: "270.0.0"
+          service_account_email: ${{ secrets.GKE_EMAIL }}
+          service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+
+      - name: Set up kub context
+        run: gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_ZONE }} --project ${{ secrets.PROJECT_ID }}
+
+      - name: Run manifests
+        run: kubectl apply -f infra/k8s/ --recursive

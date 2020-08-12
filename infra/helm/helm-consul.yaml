@@ -19,3 +19,9 @@ client:
 
 server:
   enabled: true
+# IingressGateways:
+#   enabled: true
+#   gateways:
+#     - name: ingress-gateway
+#       service:
+#         type: LoadBalancer

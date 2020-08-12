@@ -4,9 +4,11 @@ kind: Deployment
 
 metadata:
   name: auth-2-depl
+  labels:
+    app: auth
 
 spec:
-  replicas: 2
+  replicas: 4
 
   selector:
     matchLabels:
@@ -22,8 +24,14 @@ spec:
       containers:
         - name: auth
           image: anyungu/mesauth
-
-      serviceAccountName: auth
+          ports:
+            - containerPort: 5000
+      serviceAccountName: auth-srv-acct
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: auth-srv-acct
 ---
 # apiVersion: v1
 
@@ -42,14 +50,20 @@ spec:
 #       port: 5000
 #       targetPort: 5000
 
-apiVersion: v1
+# apiVersion: v1
 
-kind: ServiceAccount
+# kind: ServiceAccount
 
-metadata:
-  name: auth
+# metadata:
+#   name: auth
+# apiVersion: v1
 
----
+# kind: ServiceAccount
+
+# metadata:
+#   name: auth
+
+# ---
 apiVersion: v1
 kind: Service
 metadata:
@@ -57,11 +71,11 @@ metadata:
   annotations:
     getambassador.io/config: |
       ---
-      apiVersion: ambassador/v1
+      apiVersion: getambassador.io/v2
       kind:  Mapping
       name:  auth_srv_mapping
-      prefix: /user
-      service: http://auth-2-depl:5000
+      prefix: /api/v1/
+      service: http://auth-srv:80
 spec:
   type: NodePort
   selector:
@@ -70,13 +84,24 @@ spec:
     - port: 80
       name: auth
       targetPort: 5000
-
----
-# apiVersion: getambassador.io/v2
-# kind: Mapping
+# ---
+# apiVersion: v1
+# kind: Service
 # metadata:
-#   name: auth_srv_mapping
-#   namespace: ambassador
+#   name: auth-srv
+#   annotations:
+#     getambassador.io/config: |
+#       ---
+#       apiVersion: ambassador/v1
+#       kind:  Mapping
+#       name:  auth_srv_mapping
+#       prefix: /user/
+#       service: auth-sidecar-proxy
 # spec:
-#   prefix: /user/
-#   service: auth-srv
+#   selector:
+#     app: auth
+#   ports:
+#     - port: 80
+#       name: auth
+#       targetPort: 5000
+
