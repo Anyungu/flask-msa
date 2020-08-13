@@ -45,7 +45,7 @@ metadata:
       name:  noti_srv_mapping
       prefix: /api/v1/
       service: http://noti-srv:80
-      host: noti.microservices.ml
+
 spec:
   type: NodePort
   selector:

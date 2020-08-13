@@ -45,7 +45,7 @@ metadata:
       name:  auth_srv_mapping
       prefix: /api/v1/
       service: http://auth-srv:80
-      host: auth.microservices.ml
+      
 spec:
   type: NodePort
   selector:
