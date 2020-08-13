@@ -1,7 +1,7 @@
 package com.mesozi.notificationservice.models;
 
 public class Notice {
-    // comment
+    // comments comments
     private String noticeName;
 
     private String noticeMessage;
