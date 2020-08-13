@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - auth-service-2/**
+      - notification-service/**
 
 jobs:
   build:
@@ -17,10 +17,10 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v1
         with:
-          path: auth-service-2
+          path: notification-service
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: anyungu/mesauth
+          repository: anyungu/mesnoti
           tags: latest
 
       - name: Setup gcloud CLI
@@ -37,4 +37,4 @@ jobs:
       - name: Deploy
         run: |
           gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone ${{ secrets.GKE_ZONE }} --project ${{ secrets.PROJECT_ID }}
-          kubectl rollout restart deployment/auth-2-depl
+          kubectl rollout restart deployment/noti-depl
