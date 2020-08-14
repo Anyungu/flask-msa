@@ -8,7 +8,7 @@ metadata:
     app: noti
 
 spec:
-  replicas: 2
+  replicas: 3
 
   selector:
     matchLabels:
@@ -37,14 +37,14 @@ apiVersion: v1
 kind: Service
 metadata:
   name: noti-srv
-  annotations:
-    getambassador.io/config: |
-      ---
-      apiVersion: getambassador.io/v2
-      kind:  Mapping
-      name:  noti_srv_mapping
-      prefix: /api/v1/
-      service: http://noti-srv:80
+  # annotations:
+  #   getambassador.io/config: |
+  #     ---
+  #     apiVersion: getambassador.io/v2
+  #     kind:  Mapping
+  #     name:  noti_srv_mapping
+  #     prefix: /api/v1/
+  #     service: http://noti-srv:80
 
 spec:
   type: NodePort
