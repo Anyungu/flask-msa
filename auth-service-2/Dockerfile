@@ -12,7 +12,7 @@ RUN apk update \
     gcc \
     libffi-dev
 RUN pip install -r requirements.txt
-EXPOSE 5000
+EXPOSE 8080
 CMD ["python","manage.py","run"]
 
 
