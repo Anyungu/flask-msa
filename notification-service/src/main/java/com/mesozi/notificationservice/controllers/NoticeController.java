@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("api/v1/noti")
 public class NoticeController {
 
     @Autowired
@@ -35,7 +35,7 @@ public class NoticeController {
 
     }
 
-    @PostMapping(path = "notice")
+    @PostMapping(path = "/notice")
     public Map<String, String> createNotice(@RequestBody Notice notice) {
 
         return notificationsMap.populateMap(notice.getNoticeName(), notice.getNoticeMessage());
