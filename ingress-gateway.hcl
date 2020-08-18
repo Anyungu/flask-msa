@@ -1,8 +1,9 @@
 Kind = "ingress-gateway"
-Name = "us-east-ingress"
+Name = "ingress-gateway"
 
 
 Listeners = [
+ 
   {
     Port     = 8080
     Protocol = "http"
